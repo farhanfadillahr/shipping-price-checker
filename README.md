@@ -7,22 +7,23 @@ This is an intelligent RAG (Retrieval-Augmented Generation) based AI application
 ## 📁 Folder Structure
 
 ```
+📦 shipping-price-checker/
 ├──  Core_Application/
 │   ├── streamlit_app.py      # Main Streamlit web interface
 │   ├── cli.py                # Command-line interface
 │   └── shipping_assistant.py # Main AI assistant orchestrator
 │
-├── 🔧 AI_And_Tools/
+├──  AI_And_Tools/
 │   ├── shipping_tools.py     # LangChain function calling tools
 │   ├── knowledge_base.py     # RAG vector database management
 │   └── rajaongkir_api.py    # API client with error handling
 │
-├── 🐳 Deployment/
+├──  Deployment/
 │   ├── Dockerfile           # Container configuration
 │   ├── docker-compose.yml   # Multi-service orchestration
 │   └── docker.sh           # Management script
 │
-├── 📚 Data_And_Config/
+└──  Data_And_Config/
     ├── requirements.txt     # Python dependencies
     ├── chroma_db/          # Vector database storage
     ├── .env                # Environment variables

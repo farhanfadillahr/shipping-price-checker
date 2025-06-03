@@ -90,6 +90,7 @@ docker.sh
 
 # ChromaDB backup (exclude backup, keep main database)
 Data_And_Config/chroma_db_backup/
+Data_And_Config/chroma_db
 
 # Large model cache (will be downloaded during runtime)
 .cache/huggingface/
