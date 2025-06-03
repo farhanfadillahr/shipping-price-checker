@@ -1,0 +1,105 @@
+# Docker ignore file for Indonesian Shipping Price Checker
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs and temporary files
+*.log
+logs/
+*.tmp
+*.temp
+
+# Environment variables (exclude actual secrets, keep example)
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Development and testing files
+test_*.py
+*_test.py
+.pytest_cache/
+.coverage
+.coverage.*
+.tox/
+htmlcov/
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Git files
+.git/
+.gitignore
+
+# Documentation that's not needed in container
+Documentation/
+
+# Docker files (avoid recursion)
+Dockerfile
+docker-compose.yml
+docker-compose.override.yml
+.dockerignore
+docker.sh
+
+# ChromaDB backup (exclude backup, keep main database)
+Data_And_Config/chroma_db_backup/
+
+# Large model cache (will be downloaded during runtime)
+.cache/huggingface/
+.cache/torch/
+
+# Streamlit cache
+.streamlit/
+
+# Development scripts
+run.sh
+
+# README files (not needed in production container)
+README*.md

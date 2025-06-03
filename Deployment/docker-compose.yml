@@ -1,0 +1,73 @@
+services:
+  # Main Streamlit Web Application
+  shipping-app:
+    build: 
+      context: ..
+      dockerfile: Deployment/Dockerfile
+    container_name: indonesian-shipping-checker
+    ports:
+      - "8501:8501"  # Main Streamlit port
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+      - TOKENIZERS_PARALLELISM=false
+      - TRANSFORMERS_VERBOSITY=error
+      - TRANSFORMERS_NO_ADVISORY_WARNINGS=1
+      - STREAMLIT_SERVER_FILE_WATCHER_TYPE=none
+    volumes:
+      - ../Data_And_Config/chroma_db:/app/Data_And_Config/chroma_db  # Persist vector database
+      - ./logs:/app/logs            # Persist logs (optional)
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # CLI Service (optional, for testing)
+  shipping-cli:
+    build:
+      context: ..
+      dockerfile: Deployment/Dockerfile
+    container_name: indonesian-shipping-cli
+    command: python "Core_Application/cli.py"
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+      - TOKENIZERS_PARALLELISM=false
+      - TRANSFORMERS_VERBOSITY=error
+    volumes:
+      - ../Data_And_Config/chroma_db:/app/Data_And_Config/chroma_db
+    profiles:
+      - cli  # Only run when explicitly requested
+    stdin_open: true
+    tty: true
+
+  # Development service with volume mounting for live development
+  shipping-dev:
+    build:
+      context: ..
+      dockerfile: Deployment/Dockerfile
+    container_name: indonesian-shipping-dev
+    ports:
+      - "8502:8501"
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+      - TOKENIZERS_PARALLELISM=false
+      - TRANSFORMERS_VERBOSITY=error
+      - STREAMLIT_SERVER_FILE_WATCHER_TYPE=polling  # Enable file watching in dev
+    volumes:
+      - ..:/app  # Mount entire directory for development
+    profiles:
+      - dev  # Only run in development mode
+    command: streamlit run "Core_Application/streamlit_app.py" --server.port=8501 --server.address=0.0.0.0 --server.headless=true --server.runOnSave=true
+
+volumes:
+  chroma_data:
+    driver: local
+
+networks:
+  default:
+    name: shipping-network
