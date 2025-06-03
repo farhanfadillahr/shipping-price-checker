@@ -34,7 +34,7 @@ source venv/bin/activate
 
 # Install requirements
 echo -e "${BLUE}📚 Installing requirements...${NC}"
-pip install -r "Data_And_Config/requirements.txt"
+pip3 install -r "Data_And_Config/requirements.txt"
 
 # Copy environment file if it doesn't exist
 if [ ! -f "Data_And_Config/.env" ]; then
@@ -58,7 +58,7 @@ case $choice in
         echo -e "${GREEN}🌐 Starting Streamlit Web App...${NC}"
         echo -e "${BLUE}Access the app at: http://localhost:8501${NC}"
         cd "Core_Application"
-        streamlit run streamlit_app.py
+        python3 -m streamlit run streamlit_app.py
         ;;
     2)
         echo -e "${GREEN}💻 Starting CLI Interface...${NC}"
